@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Tashriflar — Avtoservis CRM</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>🚗 Avtoservis CRM</h2>
+    <ul>
+      <li><a href="{% url 'home' %}">🏠 Dashboard</a></li>
+      <li><a href="{% url 'mijoz_list' %}">👤 Mijozlar</a></li>
+      <li><a href="{% url 'avto_list' %}">🚘 Avtolar</a></li>
+      <li class="active">🧾 Tashriflar</li>
+    </ul>
+  </aside>
+
+  <div class="container">
+    <div class="navbar">
+      <h3>Tashriflar</h3>
+      <span class="admin">Admin: Sardor</span>
+    </div>
+
+    <form method="GET" class="search-box">
+      <input type="text" name="q" placeholder="Avto, Mijoz, Sana..." value="{{ search_query }}">
+      <button type="submit">🔍 Qidirish</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Avto</th>
+          <th>Sana</th>
+          <th>Joriy km</th>
+          <th>Keyingi km</th>
+          <th>Xizmatlar</th>
+          <th>Amallar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tashrif in tashriflar %}
+        <tr>
+          <td>{{ tashrif.id }}</td>
+          <td>{{ tashrif.avto }}</td>
+          <td>{{ tashrif.sana }}</td>
+          <td>{{ tashrif.joriy_km }}</td>
+          <td>{{ tashrif.keyingi_km }}</td>
+          <td>{{ tashrif.xizmatlar }}</td>
+          <td>
+            <a href="{% url 'tashrif_edit' tashrif.id %}">✏️</a>
+            <a href="{% url 'tashrif_delete' tashrif.id %}">🗑️</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" style="text-align:center;">Hech qanday tashrif topilmadi</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a href="{% url 'home' %}" class="back-link">⬅ Orqaga</a>
+  </div>
+</body>
+</html>

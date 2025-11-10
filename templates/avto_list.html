@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Avtolar — Avtoservis CRM</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>🚗 Avtoservis CRM</h2>
+    <ul>
+      <li><a href="{% url 'home' %}">🏠 Dashboard</a></li>
+      <li><a href="{% url 'mijoz_list' %}">👤 Mijozlar</a></li>
+      <li class="active">🚘 Avtolar</li>
+      <li><a href="{% url 'tashrif_list' %}">🧾 Tashriflar</a></li>
+    </ul>
+  </aside>
+
+  <div class="container">
+    <div class="navbar">
+      <h3>Avtolar</h3>
+      <span class="admin">Admin: Sardor</span>
+    </div>
+
+    <form method="GET" class="search-box">
+      <input type="text" name="q" placeholder="Model, Raqam, Mijoz..." value="{{ search_query }}">
+      <button type="submit">🔍 Qidirish</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Model</th>
+          <th>Raqam</th>
+          <th>Mijoz</th>
+          <th>Amallar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for avto in avtolar %}
+        <tr>
+          <td>{{ avto.id }}</td>
+          <td>{{ avto.model }}</td>
+          <td>{{ avto.raqam }}</td>
+          <td>{{ avto.mijoz }}</td>
+          <td>
+            <a href="{% url 'avto_edit' avto.id %}">✏️</a>
+            <a href="{% url 'avto_delete' avto.id %}">🗑️</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" style="text-align:center;">Hech qanday avto topilmadi</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a href="{% url 'home' %}" class="back-link">⬅ Orqaga</a>
+  </div>
+</body>
+</html>

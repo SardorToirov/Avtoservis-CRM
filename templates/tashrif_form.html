@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Tashrif Qo‘shish — Avtoservis CRM</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<style>
+  /* === Form kartalari === */
+.form-card {
+  background: white;
+  padding: 30px 25px;
+  border-radius: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+}
+
+.form-card p {
+  margin-bottom: 15px;
+}
+
+.form-card input,
+.form-card select,
+.form-card textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.form-card textarea {
+  resize: vertical;
+}
+
+.btn-submit {
+  padding: 12px 20px;
+  background: #406abf;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-submit:hover {
+  background: #2f3b52;
+}
+
+.btn-back {
+  background: #aaa;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn-back:hover {
+  background: #888;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-card {
+    padding: 20px;
+  }
+}
+
+</style>
+<body>
+  <aside class="sidebar">
+    <h2>🚗 Avtoservis CRM</h2>
+    <ul>
+      <li><a href="{% url 'home' %}">🏠 Dashboard</a></li>
+      <li><a href="{% url 'mijoz_list' %}">👤 Mijozlar</a></li>
+      <li><a href="{% url 'avto_list' %}">🚘 Avtolar</a></li>
+      <li class="active">🧾 Tashriflar</li>
+    </ul>
+  </aside>
+
+  <main class="main">
+    <div class="navbar">
+      <h3>Tashrif qo‘shish / tahrirlash</h3>
+      <a href="{% url 'tashrif_list' %}" class="btn-back">⬅️ Orqaga</a>
+    </div>
+
+    <div class="content">
+      <form method="POST" class="form-card">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">✅ Saqlash</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

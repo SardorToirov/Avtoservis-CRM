@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Yangi Avto — Avtoservis CRM</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>🚗 Avtoservis CRM</h2>
+    <ul>
+      <li><a href="{% url 'home' %}">🏠 Dashboard</a></li>
+      <li><a href="{% url 'mijoz_list' %}">👤 Mijozlar</a></li>
+      <li class="active">🚘 Avtolar</li>
+      <li><a href="{% url 'tashrif_list' %}">🧾 Tashriflar</a></li>
+    </ul>
+  </aside>
+
+  <div class="container">
+    <div class="navbar">
+      <h3>Yangi Avto</h3>
+      <span class="admin">Admin: Sardor</span>
+    </div>
+
+    <form method="POST" class="search-box">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">✅ Saqlash</button>
+    </form>
+
+    <a href="{% url 'avto_list' %}" class="back-link">⬅ Orqaga</a>
+  </div>
+</body>
+</html>

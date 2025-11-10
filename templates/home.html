@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard — Avtoservis CRM</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    function updateTime() {
+      const timeElem = document.getElementById('time');
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit', second:'2-digit' };
+      timeElem.textContent = now.toLocaleDateString('uz-UZ', options);
+    }
+    setInterval(updateTime, 1000);
+  </script>
+</head>
+<style>
+  body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  color: #333;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 220px;
+  height: 100%;
+  background-color: #1c2533;
+  color: #fff;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar h2 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 40px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar ul li {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.sidebar ul li a, .sidebar ul li.active {
+  display: block;
+  padding: 14px 20px;
+  color: white;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.sidebar ul li.active, .sidebar ul li a:hover {
+  background-color: #3f5efb;
+}
+
+
+/* Main content */
+.main {
+  margin-left: 240px;
+  padding: 30px 40px;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 30px;
+}
+
+.navbar h3 { font-size: 26px; color: #2f3b52; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.navbar .admin { background: #406abf; color: #fff; padding: 6px 12px; border-radius: 12px; font-weight: 500; }
+.navbar .time { font-size: 18px; font-weight: 600; color: #ff5e5e; }
+
+/* Dashboard kartalari */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.card { background: #fff; border-radius: 15px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: 0.3s; text-align: center; cursor: pointer; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+.card h3 { font-size: 28px; margin-bottom: 10px; font-weight: bold; color: #2f3b52; }
+.card p { font-size: 16px; font-weight: 500; color: #406abf; }
+.card-mijoz { border-top: 5px solid #FF6384; }
+.card-avto { border-top: 5px solid #36A2EB; }
+.card-tashrif { border-top: 5px solid #FFCE56; }
+
+/* Chart */
+.chart-card { background: #fff; border-radius: 15px; padding: 25px; box-shadow: 0 4px 25px rgba(0,0,0,0.1); margin-bottom: 40px; }
+
+/* Quick links */
+.quick-links { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; }
+.quick-links a { flex: 1 1 200px; padding: 14px 20px; background: #406abf; color: #fff; border-radius: 12px; text-align: center; font-weight: 500; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+.quick-links a:hover { background: #2f3b52; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main { margin-left: 0; padding: 20px; }
+  .sidebar { width: 100%; height: auto; flex-direction: row; justify-content: space-around; padding: 10px; }
+  .dashboard-cards { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+
+</style>
+<body onload="updateTime()">
+  <aside class="sidebar">
+    <h2>🚗 Avtoservis CRM</h2>
+    <ul>
+      <li class="active">🏠 Dashboard</li>
+      <li><a href="{% url 'mijoz_list' %}">👤 Mijozlar</a></li>
+      <li><a href="{% url 'avto_list' %}">🚘 Avtolar</a></li>
+      <li><a href="{% url 'tashrif_list' %}">🧾 Tashriflar</a></li>
+    </ul>
+  </aside>
+
+  <main class="main">
+    <div class="navbar">
+      <h3>Dashboard</h3>
+      <div class="nav-right">
+        <span class="admin">Admin: Sardor</span>
+        <span class="time" id="time"></span>
+      </div>
+    </div>
+
+    <!-- Dashboard kartalari -->
+    <div class="dashboard-cards">
+      <div class="card card-mijoz">
+        <h3>{{ mijoz_soni }}</h3>
+        <p>Mijozlar</p>
+      </div>
+      <div class="card card-avto">
+        <h3>{{ avto_soni }}</h3>
+        <p>Avtolar</p>
+      </div>
+      <div class="card card-tashrif">
+        <h3>{{ tashrif_soni }}</h3>
+        <p>Tashriflar</p>
+      </div>
+    </div>
+
+    <!-- Haftalik statistik diagramma -->
+    <div class="chart-card">
+      <h4>📊 Haftalik tashriflar statistikasi</h4>
+      <canvas id="weeklyChart"></canvas>
+    </div>
+
+    <!-- Quick links -->
+    <div class="quick-links">
+      <a href="{% url 'mijoz_create' %}">👤 Yangi mijoz</a>
+      <a href="{% url 'avto_create' %}">🚘 Yangi avto</a>
+      <a href="{% url 'tashrif_create' %}">🧾 Yangi tashrif</a>
+    </div>
+  </main>
+
+  <script>
+    const ctx = document.getElementById('weeklyChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: {{ tashrif_haftalik_labels|safe }},
+        datasets: [{
+          label: 'Tashriflar soni',
+          data: {{ tashrif_haftalik_data|safe }},
+          backgroundColor: 'rgba(54,162,235,0.2)',
+          borderColor: 'rgba(54,162,235,1)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 6,
+          pointBackgroundColor: 'rgba(255,99,132,1)',
+          pointBorderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: {
+          y: { beginAtZero: true, ticks: { font: { size: 14 } } },
+          x: { ticks: { font: { size: 14 } } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

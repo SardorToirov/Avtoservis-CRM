@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>O‘chirish — Avtoservis CRM</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <main class="main" style="margin-left:240px; padding:50px;">
+    <div class="form-container" style="max-width:500px; text-align:center;">
+      <h2>⚠ O‘chirishni tasdiqlang</h2>
+      <p>{{ type }}: <strong>{{ obj }}</strong> ni o‘chirmoqchimisiz?</p>
+      <form method="POST">
+        {% csrf_token %}
+        <button type="submit" style="background-color:#dc3545;">O‘chirish</button>
+        <a href="javascript:history.back()" class="back-btn">Bekor qilish</a>
+      </form>
+    </div>
+  </main>
+</body>
+</html>
