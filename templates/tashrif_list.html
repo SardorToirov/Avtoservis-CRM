@@ -6,6 +6,76 @@
   <title>Tashriflar — Avtoservis CRM</title>
   <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
+<style>
+  .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.btn-add, .btn-excel {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.btn-add {
+  background-color: #406abf;
+  color: white;
+}
+
+.btn-add:hover {
+  background-color: #2f3b52;
+}
+
+.btn-excel {
+  background-color: #2ea44f;
+  color: white;
+}
+
+.btn-excel:hover {
+  background-color: #248a3d;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f0f4ff;
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: #f9fbff;
+}
+
+.edit, .delete {
+  text-decoration: none;
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.edit:hover { color: #406abf; }
+.delete:hover { color: #ff5e5e; }
+
+</style>
 <body>
   <aside class="sidebar">
     <h2>🚗 Avtoservis CRM</h2>
@@ -19,15 +89,25 @@
 
   <div class="container">
     <div class="navbar">
-      <h3>Tashriflar</h3>
+      <h3>Tashriflar ro‘yxati</h3>
       <span class="admin">Admin: Sardor</span>
     </div>
 
+    <!-- Qidiruv -->
     <form method="GET" class="search-box">
       <input type="text" name="q" placeholder="Avto, Mijoz, Sana..." value="{{ search_query }}">
       <button type="submit">🔍 Qidirish</button>
     </form>
 
+    <!-- Tugmalar paneli -->
+    <div class="actions">
+      <a href="{% url 'tashrif_create' %}" class="btn-add">➕ Yangi tashrif qo‘shish</a>
+      <a href="{% url 'export_tashrif_excel' %}" class="btn btn-success">
+    📥 Excelga yuklab olish
+</a>
+    </div>
+
+    <!-- Jadval -->
     <table>
       <thead>
         <tr>
@@ -50,8 +130,8 @@
           <td>{{ tashrif.keyingi_km }}</td>
           <td>{{ tashrif.xizmatlar }}</td>
           <td>
-            <a href="{% url 'tashrif_edit' tashrif.id %}">✏️</a>
-            <a href="{% url 'tashrif_delete' tashrif.id %}">🗑️</a>
+            <a href="{% url 'tashrif_edit' tashrif.id %}" class="edit">✏️</a>
+            <a href="{% url 'tashrif_delete' tashrif.id %}" class="delete">🗑️</a>
           </td>
         </tr>
         {% empty %}

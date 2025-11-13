@@ -16,7 +16,7 @@ import re
 # !!! BOT_TOKEN ni o'zingizniki bilan almashtiring !!!
 BOT_TOKEN = "8280685098:AAHTCx8zYx5H04pJAeOJO8zduRIDUXGGDuI"
 # Fayl nomi
-EXCEL_PATH = "customers.xlsx"
+EXCEL_PATH = "../customers.xlsx"
 DB_PATH = "customers.db"
 # Har bir mijoz bloki 10 qatordan iborat
 ROWS_PER_CLIENT = 10

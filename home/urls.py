@@ -21,4 +21,11 @@ urlpatterns = [
     path('tashrif/create/', views.tashrif_create, name='tashrif_create'),
     path('tashrif/edit/<int:pk>/', views.tashrif_edit, name='tashrif_edit'),
     path('tashrif/delete/<int:pk>/', views.tashrif_delete, name='tashrif_delete'),
+
+    path('mijozlar/export/', views.export_mijoz_excel, name='export_mijoz_excel'),
+    path('avto/export/', views.export_avto_excel, name='export_avto_excel'),
+    path('tashrif/export/', views.export_tashrif_excel, name='export_tashrif_excel'),
+
+    path('export/all/', views.export_all_excel, name='export_all_excel'),
+
 ]

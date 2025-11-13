@@ -73,6 +73,17 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'crm_service_db',
+#         'USER': 'admin1',
+#         'PASSWORD': 'admin1213',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5433',
+#     }
+# }
+#
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
